@@ -13,6 +13,7 @@ def main():
     parser.add_argument("-s", "--schema", help="schema",required=False, required='-t' in sys.argv)
     parser.add_argument("-t", "--table", help="table", required='-s' in sys.argv)
     parser.add_argument("-a", "--admin", help="admin mode", required=False, nargs='?', const='',default='')
+    parser.add_argument("-v", "--verbose", help="verbose", required=False, nargs='?', const='',default='')
 
     args = parser.parse_args()
     
