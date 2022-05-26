@@ -1,5 +1,4 @@
 import os.path
-import mysql_enumerator.mysql_enumerator_constants
 import pandas as pd
 import pymysql
 
