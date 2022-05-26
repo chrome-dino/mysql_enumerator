@@ -42,11 +42,27 @@ Uses the following non standard libraries:
 ### Help Menu
 
 ```bash
-# Install dependencies
-$ npm install
+usage: __main__.py [-h] -db HOSTNAME -u USERNAME -p PASSWORD [-port PORT] [-s SCHEMA] [-t TABLE] [-a | --admin | --no-admin]
+                   [-v | --verbose | --no-verbose]
 
-# Run the app
-$ npm start
+options:
+  -h, --help            show this help message and exit
+  -db HOSTNAME, --hostname HOSTNAME
+                        IP address or hostname of the target database
+  -u USERNAME, --username USERNAME
+                        Login username
+  -p PASSWORD, --password PASSWORD
+                        Login Password
+  -port PORT, --port PORT
+                        Port number (Defaults to 3306)
+  -s SCHEMA, --schema SCHEMA
+                        Name of the schema to be used in table extraction mode. Requires the table option
+  -t TABLE, --table TABLE
+                        Name of the table to be used in table extraction mode. Requires the schema option
+  -a, --admin, --no-admin
+                        Enable admin mode to extract database user info. Requires admin credentials
+  -v, --verbose, --no-verbose
+                        List additional details in the user report
 ```
 
 ### Video
