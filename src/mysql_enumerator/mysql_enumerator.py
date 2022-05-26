@@ -1,7 +1,7 @@
 import os.path
-import mysql_enumerator.mysql_enumerator_constants
 import pandas as pd
 import pymysql
+
 
 class MySqlEnumerator():
 
@@ -37,15 +37,17 @@ class MySqlEnumerator():
         # collect tables for each schema
         for x in result:
             tables = []
-            schema = x['schema_name']
-            sql = "SELECT table_name FROM information_schema.tables WHERE table_schema = '" + schema
+            schema = x['SCHEMA_NAME']
+            if schema == 'performance_schema' or schema == 'sys' or schema == 'information_schema' or schema == 'mysql':
+                continue
+            sql = "SELECT table_name FROM information_schema.tables WHERE table_schema = '" + schema + "'"
             cursor.execute(sql)
             table_query = cursor.fetchall()
 
             # collect columns for each table
             for y in table_query:
-                table = y['table_name']
-                sql = "SELECT COLUMN_NAME,DATA_TYPE FROM information_schema.COLUMNS WHERE table_name = '" + table
+                table = y['TABLE_NAME']
+                sql = "SELECT COLUMN_NAME,DATA_TYPE FROM information_schema.COLUMNS WHERE table_name = '" + table + "'"
                 cursor.execute(sql)
                 columns = cursor.fetchall()
                 cols = []
@@ -60,7 +62,7 @@ class MySqlEnumerator():
 
         # if running in admin mode collect user data
         if self.admin:
-            sql = "SELECT * FROM user"
+            sql = "SELECT * FROM mysql.user"
             cursor.execute(sql)
             users = cursor.fetchall()
             final['users'] = users
@@ -90,31 +92,32 @@ class MySqlEnumerator():
                 else:
                     # if no table is provided print out details about all tables in the database
                     results = self.db_report(cursor)
-                    for schema in results['schema']:
+                    for schema in results['db_layout']:
                         print('SCHEMA: ' + schema['schema'])
                         print('---------------------------------------------------\n')
-                        for table in schema['table']:
-                            print('\tTABLE: ' + table)
-                            for column in table['column']:
+                        for table in schema['tables']:
+                            print('\tTABLE: ' + table['table'])
+                            for column in table['columns']:
                                 print('\t\t' + column['column'] + ": " + column['data_type'])
                             print('\n\n')
 
                     # if running in admin mode print out user info
                     if self.admin:
                         df = pd.DataFrame(results['users'])
+                        df = df.applymap(lambda x: x.encode('unicode_escape').decode('utf-8') if isinstance(x, str) else x)
                         df.to_excel('users.xlsx')
                         print('USERS')
                         print('---------------------------------------------------\n')
                         for user in results['users']:
                             print('\tHOST: ' + user['Host'])
                             print('\tUSER: ' + user['User'])
-                            print('\tPASSWORD: ' + user['Password'] + '  EXPIRED: ' + user['password_expired'])
+                            print('\tauthentication_string: ' + user['authentication_string'] + '  EXPIRED: ' + user['password_expired'])
 
                             # print out user privs
                             print('\tPRIVILEGES:')
                             if user['Select_priv'] == 'Y':
                                 print('\t\tSELECT')
-                            if user['Inser_priv'] == 'Y':
+                            if user['Insert_priv'] == 'Y':
                                 print('\t\tINSERT')
                             if user['Update_priv'] == 'Y':
                                 print('\t\tUPDATE')
@@ -172,6 +175,7 @@ class MySqlEnumerator():
                                    print('\t\tCREATE_TABLESPACE')
                                 if user['Delete_history_priv'] == 'Y':
                                    print('\t\tDELETE_HISTORY')
+                            print()
 
 
         except pymysql.err.OperationalError:
