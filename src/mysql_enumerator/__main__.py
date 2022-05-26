@@ -1,4 +1,5 @@
 import argparse
+impoty mysql_enumerator
 
 def main():
     parser = argparse.ArgumentParser()
@@ -14,6 +15,8 @@ def main():
     parser.add_argument("-a", "--admin", help="admin mode", required=False, nargs='?', const='',default='')
 
     args = parser.parse_args()
+    
+    sc = mysql_enumerator.MySqlEnumerator()
     
 if __name__ == "__main__":
     main()
