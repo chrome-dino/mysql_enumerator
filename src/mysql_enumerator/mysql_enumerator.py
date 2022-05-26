@@ -3,7 +3,7 @@ import mysql_enumerator.mysql_enumerator_constants
 
 class MySqlEnumerator():
    
-    def __init__(self):
+   def __init__(self):
          
 
    def exfil_table(self,table,schema,cursor):
