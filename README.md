@@ -3,11 +3,11 @@ mysql_enumerator is a tool that
 
 
 ## Table of Contents
-*<a href="#key-features">Key Features</a></br>
-*<a href="#installation">Installation</a></br>
-*<a href="#how-to-use">How To Use</a> </br>
-*<a href="#notes">Notes</a></br>
-*<a href="#license">License</a>
+* <a href="#key-features">Key Features</a></br>
+* <a href="#installation">Installation</a></br>
+* <a href="#how-to-use">How To Use</a> </br>
+* <a href="#notes">Notes</a></br>
+* <a href="#license">License</a>
 
 
 
