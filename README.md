@@ -2,13 +2,13 @@
 mysql_enumerator is a tool that 
 
 
-<p align="center">
-  <a href="#key-features">Key Features</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#how-to-use">How To Use</a> •
-  <a href="#notes">Notes</a> •
-  <a href="#license">License</a>
-</p>
+## Table of Contents
+<a href="#key-features">Key Features</a>
+<a href="#installation">Installation</a>
+<a href="#how-to-use">How To Use</a> 
+<a href="#notes">Notes</a>
+<a href="#license">License</a>
+
 
 
 ## Key Features
