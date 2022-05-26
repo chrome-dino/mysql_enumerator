@@ -1,6 +1,7 @@
 # mysql_enumerator
 mysql_enumerator is a tool that 
 
+
 <p align="center">
   <a href="#key-features">Key Features</a> •
   <a href="#installation">Installation</a> •
@@ -8,6 +9,7 @@ mysql_enumerator is a tool that
   <a href="#notes">Notes</a> •
   <a href="#license">License</a>
 </p>
+
 
 ## Key Features
 
